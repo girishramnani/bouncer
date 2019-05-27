@@ -43,7 +43,7 @@ defmodule Bouncer.Token do
   false otherwise.
   """
   def validate([conn, namespace, token]) do
-    case Token.verify(conn, namespace, token, max_age) do
+    case Token.verify(conn, namespace, token, max_age: max_age) do
       {:ok, _} -> token
       _ -> false
     end
