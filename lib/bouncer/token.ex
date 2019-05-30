@@ -6,7 +6,7 @@ defmodule Bouncer.Token do
   alias Phoenix.Token
 
   def adapter, do: Application.get_env(:bouncer, :adapter)
-  def max_age, do: Application.get_env(:bouncer, :max_age, :infinity)
+  def max_age, do: Application.get_env(:bouncer, :max_age, 86400)
 
   @doc """
   Generates a token, uses it as a key to save user data to the store, and
