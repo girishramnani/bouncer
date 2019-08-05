@@ -24,9 +24,9 @@ defmodule Bouncer.Mixfile do
       elixirc_paths: elixirc_paths(Mix.env()),
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
-      deps: deps,
-      description: description,
-      package: package
+      deps: deps(),
+      description: description(),
+      package: package()
     ]
   end
 
@@ -49,7 +49,7 @@ defmodule Bouncer.Mixfile do
       {:poolboy, "~> 1.4"},
       {:earmark, "~> 0.1", only: [:dev, :test]},
       {:ex_doc, "~> 0.10", only: [:dev, :test]},
-      {:credo, "~> 0.10", only: [:dev, :test]}
+      {:credo, "~> 0.4", only: [:dev, :test]}
     ]
   end
 end
