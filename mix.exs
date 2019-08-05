@@ -47,8 +47,8 @@ defmodule Bouncer.Mixfile do
       {:poison, "~> 1.5 or ~> 2.0"},
       {:redix, ">= 0.0.0"},
       {:poolboy, "~> 1.4"},
-      {:earmark, "~> 0.1", only: :dev},
-      {:ex_doc, "~> 0.10", only: :dev},
+      {:earmark, "~> 0.1", only: [:dev, :test]},
+      {:ex_doc, "~> 0.10", only: [:dev, :test]},
       {:credo, "~> 0.10", only: [:dev, :test]}
     ]
   end
