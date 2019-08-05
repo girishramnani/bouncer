@@ -12,9 +12,7 @@ defmodule Bouncer.Utility do
           Logger.debug(piped)
 
         _ ->
-          Logger.debug(fn ->
-            "#{message} #{inspect(piped)}"
-          end)
+          Logger.debug("#{message} #{inspect(piped)}")
       end
     end
 
