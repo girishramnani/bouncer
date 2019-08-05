@@ -10,7 +10,7 @@ defmodule Plugs.AuthorizeTest do
   doctest Bouncer.Plugs.Authorize
 
   setup do
-    RedixPool.command ~w(FLUSHALL)
+    RedixPool.command(~w(FLUSHALL))
     {:ok, conn: %Conn{} |> Conn.put_private(:phoenix_endpoint, MockEndpoint)}
   end
 
@@ -22,25 +22,25 @@ defmodule Plugs.AuthorizeTest do
   end
 
   test "no user data is added when bogus auth token received", %{conn: conn} do
-    conn = conn
-    |> Conn.put_req_header("authorization", "Bearer test")
-    |> Authorize.call(nil)
+    conn =
+      conn
+      |> Conn.put_req_header("authorization", "Bearer test")
+      |> Authorize.call(nil)
 
     refute Map.has_key?(conn.private, :current_user)
   end
 
   test "user data is added when correct auth header is specified",
-    %{conn: conn} do
-
+       %{conn: conn} do
     user = %{"id" => 1}
-    {:ok, token} = Session.generate conn, user
+    {:ok, token} = Session.generate(conn, user)
 
-    conn = conn
-    |> Conn.put_req_header("authorization", "Bearer #{token}")
-    |> Bouncer.Plugs.Authorize.call(nil)
+    conn =
+      conn
+      |> Conn.put_req_header("authorization", "Bearer #{token}")
+      |> Bouncer.Plugs.Authorize.call(nil)
 
     assert conn.private.auth_token == token
     assert conn.private.current_user == user
-
   end
 end

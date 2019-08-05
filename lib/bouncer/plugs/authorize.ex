@@ -17,7 +17,7 @@ defmodule Bouncer.Plugs.Authorize do
   connection.
   """
   def call(conn, _) do
-    conn |> put_auth_token |> Session.put_current_user
+    conn |> put_auth_token |> Session.put_current_user()
   end
 
   @doc """

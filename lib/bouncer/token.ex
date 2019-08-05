@@ -14,16 +14,16 @@ defmodule Bouncer.Token do
   """
   def generate(conn, namespace, user, ttl) do
     token = Token.sign(conn, namespace, user["id"])
-    case adapter.save(user, token, ttl) do
 
+    case adapter.save(user, token, ttl) do
       {:ok, ^token} ->
         case adapter.add(user["id"], token) do
           {:ok, _} -> {:ok, token}
           response -> response
         end
 
-      response -> response
-
+      response ->
+        response
     end
   end
 
@@ -64,9 +64,10 @@ defmodule Bouncer.Token do
   """
   def delete_all(conn, namespace, id) do
     {_, tokens} = adapter.all(id)
+
     tokens
-    |> Enum.map(&([conn, namespace, &1]))
-    |> Enum.filter_map(&validate/1, fn ([_, _, token]) -> token end)
+    |> Enum.map(&[conn, namespace, &1])
+    |> Enum.filter_map(&validate/1, fn [_, _, token] -> token end)
     |> delete(id)
   end
 

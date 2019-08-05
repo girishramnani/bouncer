@@ -1,7 +1,7 @@
 defmodule Bouncer.Mixfile do
   use Mix.Project
 
-  defp package do
+  defp package() do
     [
       files: ["lib", "mix.exs", "README.md", "LICENSE"],
       maintainers: ["Ian Walter"],
@@ -10,20 +10,20 @@ defmodule Bouncer.Mixfile do
     ]
   end
 
-  defp description do
+  defp description() do
     """
     Token-based authorization and session management for Phoenix (Elixir)
     """
   end
 
-  def project do
+  def project() do
     [
       app: :bouncer,
       version: "0.3.0",
       elixir: ">= 1.0.0",
-      elixirc_paths: elixirc_paths(Mix.env),
-      build_embedded: Mix.env == :prod,
-      start_permanent: Mix.env == :prod,
+      elixirc_paths: elixirc_paths(Mix.env()),
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
       deps: deps,
       description: description,
       package: package
@@ -31,16 +31,16 @@ defmodule Bouncer.Mixfile do
   end
 
   defp elixirc_paths(:test), do: ["lib", "test/mocks"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 
   defp applications(:test), do: [:phoenix, :logger]
   defp applications(_), do: [:logger]
 
-  def application do
-    [mod: {Bouncer, []}, applications: applications(Mix.env)]
+  def application() do
+    [mod: {Bouncer, []}, applications: applications(Mix.env())]
   end
 
-  defp deps do
+  defp deps() do
     [
       {:plug, ">= 1.0.3"},
       {:phoenix, ">= 1.2.1"},
@@ -49,7 +49,7 @@ defmodule Bouncer.Mixfile do
       {:poolboy, "~> 1.4"},
       {:earmark, "~> 0.1", only: :dev},
       {:ex_doc, "~> 0.10", only: :dev},
-      {:credo, "~> 0.4", only: [:dev, :test]}
+      {:credo, "~> 0.10", only: [:dev, :test]}
     ]
   end
 end

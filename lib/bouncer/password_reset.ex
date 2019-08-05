@@ -23,7 +23,7 @@ defmodule Bouncer.PasswordReset do
   Bouncer.Token.regenerate/4.
   """
   def regenerate(conn, user, ttl \\ 86_400) do
-     Token.regenerate(conn, "password", user, ttl)
+    Token.regenerate(conn, "password", user, ttl)
   end
 
   @doc """

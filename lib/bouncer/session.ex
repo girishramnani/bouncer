@@ -23,7 +23,6 @@ defmodule Bouncer.Session do
   """
   def verify(conn, token), do: Token.verify(conn, "user", token)
 
-
   @doc """
   Saves session data given a key and optional ttl (time-to-live).
   """
@@ -34,7 +33,7 @@ defmodule Bouncer.Session do
   connection.
   """
   def put_current_user(conn) do
-    if Map.has_key? conn.private, :auth_token do
+    if Map.has_key?(conn.private, :auth_token) do
       conn
       |> verify(conn.private.auth_token)
       |> Utility.debug_piped("Auth token verification: ")
@@ -79,8 +78,9 @@ defmodule Bouncer.Session do
       false
   """
   def user_request?(conn, id) do
-    has_current_user = Map.has_key?(conn.private, :current_user) &&
-                       Map.has_key?(conn.private.current_user, "id")
+    has_current_user =
+      Map.has_key?(conn.private, :current_user) && Map.has_key?(conn.private.current_user, "id")
+
     if is_bitstring(id) do
       {id, _} = Integer.parse(id)
       has_current_user && conn.private.current_user["id"] == id

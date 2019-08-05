@@ -23,7 +23,7 @@ defmodule Bouncer.EmailVerification do
   Bouncer.Token.regenerate/4.
   """
   def regenerate(conn, user, ttl \\ 86_400) do
-     Token.regenerate(conn, "email", user, ttl)
+    Token.regenerate(conn, "email", user, ttl)
   end
 
   @doc """

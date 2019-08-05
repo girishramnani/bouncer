@@ -8,11 +8,16 @@ defmodule Bouncer.Utility do
   def debug_piped(piped, message \\ nil) do
     if Application.get_env(:logger, :level) === :debug do
       case message do
-        nil -> Logger.debug piped
-        _ -> Logger.debug "#{message} #{inspect piped}"
+        nil ->
+          Logger.debug(piped)
+
+        _ ->
+          Logger.debug(fn ->
+            "#{message} #{inspect(piped)}"
+          end)
       end
     end
+
     piped
   end
-
 end

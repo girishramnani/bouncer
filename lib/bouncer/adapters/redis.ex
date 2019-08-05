@@ -16,7 +16,7 @@ defmodule Bouncer.Adapters.Redis do
       {:ok, "UdOnTkNoW"}
   """
   def save(data, key, ttl) do
-    {status, _} = RedixPool.command(~w(SET) ++ [key] ++ [Poison.encode! data])
+    {status, _} = RedixPool.command(~w(SET) ++ [key] ++ [Poison.encode!(data)])
     if ttl, do: expire(key, ttl), else: {status, key}
   end
 
@@ -49,7 +49,7 @@ defmodule Bouncer.Adapters.Redis do
   """
   def get(key) do
     case RedixPool.command(~w(GET) ++ [key]) do
-      {_, nil}  -> {:error, nil}
+      {_, nil} -> {:error, nil}
       {_, data} -> {:ok, Parser.parse!(data)}
     end
   end

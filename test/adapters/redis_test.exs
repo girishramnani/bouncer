@@ -4,7 +4,7 @@ defmodule Adapters.RedisTest do
   alias Bouncer.RedixPool
 
   setup do
-    RedixPool.command ~w(FLUSHALL)
+    RedixPool.command(~w(FLUSHALL))
     :ok
   end
 
